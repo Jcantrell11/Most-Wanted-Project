@@ -212,8 +212,18 @@ function findPersonDescendants(person, people) {
 }
 
 function searchByTraits(people) {
-    let singleTrait = promptFor("Would you like to search by a single trait?", chars);
-    let multipleTrait = promptFor("Would you like to serch by multiple traits?", chars);
+    let traitPrompt = promptFor("Would you like to search by a single trait or multiple traits? Enter single or multiple", chars);
+    // let multipleTrait = promptFor("Would you like to serch by multiple traits?", chars);
+    if (traitPrompt === "single")
+        promptFor("What trait would you like to search for?\n eyeColor\n dob\n gender\n height\n weight\n occupation", chars);
+            if(promptFor === "gender")
+                promptFor("male or female?")
+    else(traitPrompt === "multiple") 
+        promptFor("What traits would you like to search for?", chars);
+
+
+
+
 }
 
 

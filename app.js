@@ -79,6 +79,7 @@ function mainMenu(person, people) {
             //! TODO #3: Declare a findPersonDescendants function //////////////////////////////////////////
             // HINT: Review recursion lecture + demo for bonus user story
             let personDescendants = findPersonDescendants(person[0], people);
+            console.log(personDescendants)
             alert(personDescendants);
             break;
         case "restart":
@@ -146,6 +147,7 @@ function displayPerson(person) {
     personInfo += `Weight: ${person.weight}\n`;
     personInfo += `Eye Color: ${person.eyeColor}\n`;
     personInfo += `Occupation: ${person.occupation}\n`;
+    personInfo += `ID #${person.id}\n`;
     //! TODO #1a: finish getting the rest of the information to display //////////////////////////////////////////
     alert(personInfo);
 }
@@ -192,7 +194,26 @@ function chars(input) {
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
 
 function findPersonFamily(person) {
-    let personFamily = `Spouse: ${person.currentSpouse}\n`;
+    let personFamily = `Spouse: ${person.currentSpouse}.\n`;
     personFamily += `Parents: ${person.parents}\n`;
     alert(personFamily);
 }
+
+function findPersonDescendants(person, people) {
+    let personDescendants = data.filter(function(el) {
+        if (el.parents[0] === person.id) {
+            return true;
+        } else {
+            return false;
+        }
+    })
+
+    alert(personDescendants);
+
+
+}
+
+
+
+
+

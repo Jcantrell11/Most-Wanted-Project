@@ -209,11 +209,12 @@ function findPersonDescendants(person, people) {
     })
 
     alert(personDescendants);
-
-
 }
 
-
+function searchByTraits(people) {
+    let singleTrait = promptFor("Would you like to search by a single trait?", chars);
+    let multipleTrait = promptFor("Would you like to serch by multiple traits?", chars);
+}
 
 
 

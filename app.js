@@ -212,11 +212,11 @@ function findPersonDescendants(person, people) {
     alert(personDescendants);
 }
 
-function searchByTraits(people) {
+function searchByTraits(person) {
     let traitPrompt = promptFor("Would you like to search by a single trait or multiple traits? Enter single or multiple", chars);
     if (traitPrompt === "single") {
         let singlePrompt = promptFor("What trait would you like to search for?\n eyeColor\n dob\n gender\n height\n weight\n occupation", chars);
-            if (singlePrompt === "gender"); 
+            if (singlePrompt === "gender") {
                 let genderPrompt = prompt("Please enter a gender to search by: male or female?  ");
                 let personGender = data.filter(function(el) {
                         if (el.gender === genderPrompt) {
@@ -225,10 +225,24 @@ function searchByTraits(people) {
                             return false;
                         }
                     }) 
-
+                    console.log(personGender)
                     alert(personGender)
+                    
                 }
+            if (singlePrompt === "eyeColor") {
+                let eyeColorPrompt = prompt("Please select what eye color to search for:\n blue\n brown\n green\n hazel\ black", chars);
+                let eyeColor = data.filter(function(el) {
+                        if (el.eyeColor === eyeColorPrompt) {
+                            return true;
+                        } else {
+                            return false;
+                        }  
+                    })
+                    alert(eyeColor)
+            }
 
+    }
+            
     // } else(traitPrompt === "multiple"); {
     //     promptFor("What traits would you like to search for?", chars);
     //         };

@@ -273,6 +273,17 @@ function searchByTraits(person) {
                     })
                     alert(weightSearch)
             }
+            if (singlePrompt === "height") {
+                let heightPrompt = prompt("Please enter the height to search for: ");
+                let heightSearch = data.filter(function(el) {
+                        if (el.height === parseInt(heightPrompt)) {
+                            return true;
+                        } else {
+                            return false;
+                        }  
+                    })
+                    alert(heightSearch)
+            }
 
 
     }

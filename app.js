@@ -262,6 +262,18 @@ function searchByTraits(person) {
                     })
                     alert(dobSearch)
             }
+            if (singlePrompt === "weight") {
+                let weightPrompt = prompt("Please enter the weight to search for: ");
+                let weightSearch = data.filter(function(el) {
+                        if (el.weight === parseInt(weightPrompt)) {
+                            return true;
+                        } else {
+                            return false;
+                        }  
+                    })
+                    alert(weightSearch)
+            }
+
 
     }
             

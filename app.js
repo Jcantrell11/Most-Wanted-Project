@@ -230,7 +230,7 @@ function searchByTraits(person) {
                     
                 }
             if (singlePrompt === "eyeColor") {
-                let eyeColorPrompt = prompt("Please select what eye color to search for:\n blue\n brown\n green\n hazel\ black", chars);
+                let eyeColorPrompt = prompt("Please select what eye color to search for:\n blue\n brown\n green\n hazel\n black");
                 let eyeColor = data.filter(function(el) {
                         if (el.eyeColor === eyeColorPrompt) {
                             return true;
@@ -239,6 +239,17 @@ function searchByTraits(person) {
                         }  
                     })
                     alert(eyeColor)
+            }
+            if (singlePrompt === "occupation") {
+                let occupationPrompt = prompt("Please select what occupation to search for:\n programmer\n assistant\n landscaper\n nurse\n student\n architect\n doctor\n politician");
+                let occupationSearch = data.filter(function(el) {
+                        if (el.occupation === occupationPrompt) {
+                            return true;
+                        } else {
+                            return false;
+                        }  
+                    })
+                    alert(occupationSearch)
             }
 
     }

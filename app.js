@@ -251,6 +251,17 @@ function searchByTraits(person) {
                     })
                     alert(occupationSearch)
             }
+            if (singlePrompt === "dob") {
+                let dobPrompt = prompt("Please enter the four digit year of the birthdate you are looking for:  ");
+                let dobSearch = data.filter(function(el) {
+                        if (el.dob.includes(dobPrompt)) {
+                            return true;
+                        } else {
+                            return false;
+                        }  
+                    })
+                    alert(dobSearch)
+            }
 
     }
             

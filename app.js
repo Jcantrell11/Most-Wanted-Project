@@ -226,7 +226,7 @@ function searchByTraits(people) {
                         }
                     }) 
                     console.log(personGender)
-                    alert(personGender(data).join('\n'))
+                    alert(displayPeople(personGender).join('\n'))
                     
                 }
             if (singlePrompt === "eyeColor") {
@@ -238,7 +238,7 @@ function searchByTraits(people) {
                             return false;
                         }  
                     })
-                    alert(eyeColor.join('\n'))
+                    alert(displayPeople(eyeColor).join('\n'))
             }
             if (singlePrompt === "occupation") {
                 let occupationPrompt = prompt("Please select what occupation to search for:\n programmer\n assistant\n landscaper\n nurse\n student\n architect\n doctor\n politician");
@@ -249,7 +249,7 @@ function searchByTraits(people) {
                             return false;
                         }  
                     })
-                    alert(occupationSearch.join('\n'))
+                    alert(displayPeople(occupationSearch).join('\n'))
             }
             if (singlePrompt === "dob") {
                 let dobPrompt = prompt("Please enter the four digit year of the birthdate you are looking for:  ");
@@ -260,7 +260,7 @@ function searchByTraits(people) {
                             return false;
                         }  
                     })
-                    alert(dobSearch.join('\n'))
+                    alert(displayPeople(dobSearch).join('\n'))
             }
             if (singlePrompt === "weight") {
                 let weightPrompt = prompt("Please enter the weight to search for: ");
@@ -271,7 +271,7 @@ function searchByTraits(people) {
                             return false;
                         }  
                     })
-                    alert(weightSearch.join('\n'))
+                    alert(displayPeople(weightSearch).join('\n'))
             }
             if (singlePrompt === "height") {
                 let heightPrompt = prompt("Please enter the height to search for: ");
@@ -282,7 +282,7 @@ function searchByTraits(people) {
                             return false;
                         }  
                     })
-                    alert(heightSearch.join('\n'))
+                    alert(displayPeople(heightSearch).join('\n'))
             }
 
 
@@ -296,9 +296,8 @@ function searchByTraits(people) {
                 return false;
             }
         })
-        alert(foundItems.join('\n'))
-        console.log(foundItems)
-
+        alert(displayPeople(foundItems).join('\n'))
+        
             };
         
 

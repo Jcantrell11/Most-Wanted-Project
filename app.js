@@ -212,7 +212,7 @@ function findPersonDescendants(person, people) {
     alert(personDescendants);
 }
 
-function searchByTraits(person) {
+function searchByTraits(people) {
     let traitPrompt = promptFor("Would you like to search by a single trait or multiple traits? Enter single or multiple", chars);
     if (traitPrompt === "single") {
         let singlePrompt = promptFor("What trait would you like to search for?\n eyeColor\n dob\n gender\n height\n weight\n occupation", chars);
@@ -226,7 +226,7 @@ function searchByTraits(person) {
                         }
                     }) 
                     console.log(personGender)
-                    alert(personGender)
+                    alert(personGender(data).join('\n'))
                     
                 }
             if (singlePrompt === "eyeColor") {
@@ -238,7 +238,7 @@ function searchByTraits(person) {
                             return false;
                         }  
                     })
-                    alert(eyeColor)
+                    alert(eyeColor.join('\n'))
             }
             if (singlePrompt === "occupation") {
                 let occupationPrompt = prompt("Please select what occupation to search for:\n programmer\n assistant\n landscaper\n nurse\n student\n architect\n doctor\n politician");
@@ -249,7 +249,7 @@ function searchByTraits(person) {
                             return false;
                         }  
                     })
-                    alert(occupationSearch)
+                    alert(occupationSearch.join('\n'))
             }
             if (singlePrompt === "dob") {
                 let dobPrompt = prompt("Please enter the four digit year of the birthdate you are looking for:  ");
@@ -260,7 +260,7 @@ function searchByTraits(person) {
                             return false;
                         }  
                     })
-                    alert(dobSearch)
+                    alert(dobSearch.join('\n'))
             }
             if (singlePrompt === "weight") {
                 let weightPrompt = prompt("Please enter the weight to search for: ");
@@ -271,7 +271,7 @@ function searchByTraits(person) {
                             return false;
                         }  
                     })
-                    alert(weightSearch)
+                    alert(weightSearch.join('\n'))
             }
             if (singlePrompt === "height") {
                 let heightPrompt = prompt("Please enter the height to search for: ");
@@ -282,15 +282,25 @@ function searchByTraits(person) {
                             return false;
                         }  
                     })
-                    alert(heightSearch)
+                    alert(heightSearch.join('\n'))
             }
 
 
-    }
-            
-    // } else(traitPrompt === "multiple"); {
-    //     promptFor("What traits would you like to search for?", chars);
-    //         };
+    } else(traitPrompt === "multiple"); {
+        let traitOne = prompt("Please enter a gender to search by: male or female? ");
+        let traitTwo = prompt("Please select what eye color to search for:\n blue\n brown\n green\n hazel\n black");
+        let foundItems = data.filter(function(el){
+            if(el.gender === traitOne && el.eyeColor === traitTwo) {
+                return true;
+            } else {
+                return false;
+            }
+        })
+        alert(foundItems.join('\n'))
+        console.log(foundItems)
+
+            };
+        
 
 }
 

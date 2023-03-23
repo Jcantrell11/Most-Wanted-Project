@@ -193,11 +193,11 @@ function chars(input) {
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
 
-function findPersonFamily(person) {
+function findPersonFamily(person, _people) {
     let personFamily = `Spouse: ${person.currentSpouse}.\n`;
     personFamily += `Parents: ${person.parents}\n`;
     // personFamily += `Children: ${person.children}`
-    alert(personFamily);
+    alert(displayPeople(personFamily));
 }
 
 function findPersonDescendants(person, people) {
@@ -209,7 +209,7 @@ function findPersonDescendants(person, people) {
         }
     })
 
-    alert(personDescendants);
+    alert(displayPeople(personDescendants));
 }
 
 function searchByTraits(people) {
@@ -286,7 +286,9 @@ function searchByTraits(people) {
             }
 
 
-    } else(traitPrompt === "multiple"); {
+    } 
+    
+    if (traitPrompt === "multiple") {
         let traitOne = prompt("Please enter a gender to search by: male or female? ");
         let traitTwo = prompt("Please select what eye color to search for:\n blue\n brown\n green\n hazel\n black");
         let foundItems = data.filter(function(el){
@@ -300,7 +302,12 @@ function searchByTraits(people) {
         
             };
         
-
+    if (traitPrompt != "single" || traitPrompt != "multiple") {
+        alert("I am sorry that input is invalid. You will now be returned to the Main Menu");
+        return app(people);
+    }
+        
+    
 }
 
 

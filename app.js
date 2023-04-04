@@ -121,7 +121,7 @@ function searchByName(people) {
  * to the user in the form of an alert().
  * @param {Array} people        A collection of person objects.
  */
-function displayPeople(people) {
+function displayPeople(people, person) {
     alert(
         people
             .map(function (person) {
@@ -193,15 +193,23 @@ function chars(input) {
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
 
 function findPersonFamily(person, people) {
-    let personFamily = data.filter(function(el) {
-        if (el.id === person.currentSpouse || el.id === person.parents[0] || el.id === person.parents[1] || el.parents[0] === person.parents[0]) {
-            return true;
-        } else {
-            return false;
-        };
-    })  
+    let foundSpouse = findSpouse(person)
+    let foundParents = findParents(person)
+    let returnFamily = `Spouse: ${[foundSpouse]}\n`;
+    returnFamily += `Parents: ${[foundParents]}\n`;
+
+    displayPeople(foundSpouse + foundParents);
+
+    // let returnFamily = data.filter(function(el) {
+    //     if (el.id === person.currentSpouse || el.id === person.parents[0] || el.id === person.parents[1] || el.parents[0] === person.parents[0] && el.parents[1] === person.parents[1]) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     };
+    // })  
    
-    alert(displayPeople(personFamily));
+    
+    // alert(displayPeople(returnFamily));
 }
 
 function findPersonDescendants(person, people) {
@@ -229,7 +237,6 @@ function searchByTraits(people) {
                             return false;
                         }
                     }) 
-                    console.log(personGender)
                     alert(displayPeople(personGender).join('\n'))
                     
                 }
@@ -293,10 +300,15 @@ function searchByTraits(people) {
     } 
     
     if (traitPrompt === "multiple") {
+        // let traitOne = promptFor("What is the first trait would you like to search for?\n eyeColor\n dob\n gender\n height\n weight\n occupation", chars);
+        // let traitTwo = promptFor("What is the first trait would you like to search for?\n eyeColor\n dob\n gender\n height\n weight\n occupation", chars);
+        
         let traitOne = prompt("Please enter a gender to search by: male or female? ");
         let traitTwo = prompt("Please select what eye color to search for:\n blue\n brown\n green\n hazel\n black");
+        let traitThree = prompt("Please select what occupation to search for:\n programmer\n assistant\n landscaper\n nurse\n student\n architect\n doctor\n politician")
+        
         let foundItems = data.filter(function(el){
-            if(el.gender === traitOne && el.eyeColor === traitTwo) {
+            if(el.gender === traitOne && el.eyeColor === traitTwo && el.occupation === traitThree) {
                 return true;
             } else {
                 return false;
@@ -314,5 +326,24 @@ function searchByTraits(people) {
     
 }
 
+function findSpouse (person, people) {
+    let returnSpouse = data.filter(function(el) {
+        if (el.id === person.currentSpouse) {
+            return true;
+        } else {
+            return false;
+        }
+    })
+    return returnSpouse
+}
 
-
+function findParents (person, people) {
+    let returnParents = data.filter(function(el) {
+        if (el.id === person.parents[0] || el.id === person.parents[1]) {
+            return true;
+        } else {
+            return false;
+        }
+    })
+    return returnParents
+}

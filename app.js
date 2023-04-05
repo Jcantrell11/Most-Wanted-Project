@@ -67,7 +67,7 @@ function mainMenu(person, people) {
             //! TODO #1: Utilize the displayPerson function //////////////////////////////////////////
             // HINT: Look for a person-object stringifier utility function to help
             let personInfo = displayPerson(person[0]);
-            alert(personInfo);
+            // alert(personInfo);
             break;
         case "family":
             //! TODO #2: Declare a findPersonFamily function //////////////////////////////////////////
@@ -149,6 +149,7 @@ function displayPerson(person) {
     personInfo += `ID #${person.id}\n`;
     //! TODO #1a: finish getting the rest of the information to display //////////////////////////////////////////
     alert(personInfo);
+    app(person);
 }
 // End of displayPerson()
 
@@ -215,7 +216,8 @@ function findPersonDescendants(person, people) {
         }
     })
 
-    alert(displayPeople(personDescendants));
+    displayPeople(personDescendants);
+    app(people);
 }
 
 function searchByTraits(people) {
@@ -231,8 +233,9 @@ function searchByTraits(people) {
                             return false;
                         }
                     }) 
-                    alert(displayPeople(personGender).join('\n'))
-                    
+                    displayPeople(personGender);
+                    app(people);
+                
                 }
             if (singlePrompt === "eyeColor") {
                 let eyeColorPrompt = prompt("Please select what eye color to search for:\n blue\n brown\n green\n hazel\n black");
@@ -243,7 +246,8 @@ function searchByTraits(people) {
                             return false;
                         }  
                     })
-                    alert(displayPeople(eyeColor).join('\n'))
+                    displayPeople(eyeColor);
+                    app(people);
             }
             if (singlePrompt === "occupation") {
                 let occupationPrompt = prompt("Please select what occupation to search for:\n programmer\n assistant\n landscaper\n nurse\n student\n architect\n doctor\n politician");
@@ -254,7 +258,8 @@ function searchByTraits(people) {
                             return false;
                         }  
                     })
-                    alert(displayPeople(occupationSearch).join('\n'))
+                    displayPeople(occupationSearch);
+                    app(people);
             }
             if (singlePrompt === "dob") {
                 let dobPrompt = prompt("Please enter the four digit year of the birthdate you are looking for:  ");
@@ -265,7 +270,8 @@ function searchByTraits(people) {
                             return false;
                         }  
                     })
-                    alert(displayPeople(dobSearch).join('\n'))
+                    displayPeople(dobSearch);
+                    app(people);
             }
             if (singlePrompt === "weight") {
                 let weightPrompt = prompt("Please enter the weight to search for: ");
@@ -276,7 +282,8 @@ function searchByTraits(people) {
                             return false;
                         }  
                     })
-                    alert(displayPeople(weightSearch).join('\n'))
+                    displayPeople(weightSearch);
+                    app(people);
             }
             if (singlePrompt === "height") {
                 let heightPrompt = prompt("Please enter the height to search for: ");
@@ -287,7 +294,8 @@ function searchByTraits(people) {
                             return false;
                         }  
                     })
-                    alert(displayPeople(heightSearch).join('\n'))
+                    displayPeople(heightSearch);
+                    app(people);
             }
 
 
@@ -297,21 +305,45 @@ function searchByTraits(people) {
         // let traitOne = promptFor("What is the first trait would you like to search for?\n eyeColor\n dob\n gender\n height\n weight\n occupation", chars);
         // let traitTwo = promptFor("What is the first trait would you like to search for?\n eyeColor\n dob\n gender\n height\n weight\n occupation", chars);
         
-        let traitOne = prompt("Please enter a gender to search by: male or female? ");
-        let traitTwo = prompt("Please select what eye color to search for:\n blue\n brown\n green\n hazel\n black");
-        let traitThree = prompt("Please select what occupation to search for:\n programmer\n assistant\n landscaper\n nurse\n student\n architect\n doctor\n politician")
+        // let traitOne = prompt("Please enter a gender to search by: male or female? ");
+        // let traitTwo = prompt("Please select what eye color to search for:\n blue\n brown\n green\n hazel\n black");
+        // let traitThree = prompt("Please select what occupation to search for:\n programmer\n assistant\n landscaper\n nurse\n student\n architect\n doctor\n politician")
         
-        let foundItems = data.filter(function(el){
-            if(el.gender === traitOne && el.eyeColor === traitTwo && el.occupation === traitThree) {
-                return true;
-            } else {
-                return false;
+        // let foundItems = data.filter(function(el){
+        //     if(el.gender === traitOne && el.eyeColor === traitTwo && el.occupation === traitThree) {
+        //         return true;
+        //     } else {
+        //         return false;
+        //     }
+        // })
+        // alert(displayPeople(foundItems).join('\n'))
+        
+        //     };
+        let firstPrompt = promptFor("What trait would you like to search for first?\n eyeColor\n dob\n gender\n height\n weight\n occupation", chars);
+        let firstChoice = promptFor("Enter the trait value: \n gender: male or female\n eyeColor: blue, green, black, hazel, brown\n dob: 4 digit year\n height: 58-76\n weight: 100-256\n occupation: programmer, assistant, landscaper, nurse, student, architect, doctor, politician", chars);
+        let secondPrompt = promptFor("What trait would you like to search for next?\n eyeColor\n dob\n gender\n height\n weight\n occupation", chars);
+        let secondChoice = promptFor("Enter the trait value: \n gender: male or female\n eyeColor: blue, green, black, hazel, brown\n dob: 4 digit year\n height: 58-76\n weight: 100-256\n occupation: programmer, assistant, landscaper, nurse, student, architect, doctor, politician", chars);
+        let thirdPrompt = promptFor("What trait would you like to search for next?\n eyeColor\n dob\n gender\n height\n weight\n occupation", chars);
+        let thirdChoice = promptFor("Enter the trait value: \n gender: male or female\n eyeColor: blue, green, black, hazel, brown\n dob: 4 digit year\n height: 58-76\n weight: 100-256\n occupation: programmer, assistant, landscaper, nurse, student, architect, doctor, politician", chars);
+        let foundPeople = data.filter(function(el) {
+            try {
+                if(el[firstPrompt].includes(firstChoice) && el[secondPrompt].includes(secondChoice) && el[thirdPrompt].includes(thirdChoice)){
+                    return true;
+                }
+            } catch (error) {
+                console.log(error);
             }
-        })
-        alert(displayPeople(foundItems).join('\n'))
-        
-            };
-        
+            finally{
+                if(el[firstPrompt]===parseInt(firstChoice) && el[secondPrompt]===parseInt(secondChoice) && el[thirdPrompt]===parseInt(thirdChoice)){
+                    return true;
+                }
+            }
+        });
+        alert(displayPeople(foundPeople))   
+            
+            
+
+
     if (traitPrompt != "single" || traitPrompt != "multiple") {
         alert("I am sorry that input is invalid. You will now be returned to the Main Menu");
         return app(people);
@@ -357,4 +389,5 @@ function findSiblings (person, people) {
     return returnSiblings;
 }
 
+}
 

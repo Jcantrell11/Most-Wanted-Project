@@ -29,8 +29,6 @@ function app(people) {
             searchResults = searchByName(people);
             break;
         case "no":
-            //! TODO #4: Declare a searchByTraits (multiple traits) function //////////////////////////////////////////
-                //! TODO #4a: Provide option to search for single or multiple //////////////////////////////////////////
             searchResults = searchByTraits(people);
             break;
         default:
@@ -64,22 +62,13 @@ function mainMenu(person, people) {
     // Routes our application based on the user's input
     switch (displayOption) {
         case "info":
-            //! TODO #1: Utilize the displayPerson function //////////////////////////////////////////
-            // HINT: Look for a person-object stringifier utility function to help
             let personInfo = displayPerson(person[0]);
-            // alert(personInfo);
             break;
         case "family":
-            //! TODO #2: Declare a findPersonFamily function //////////////////////////////////////////
-            // HINT: Look for a people-collection stringifier utility function to help
             let personFamily = findPersonFamily(person[0], people);
-            alert(personFamily);
             break;
         case "descendants":
-            //! TODO #3: Declare a findPersonDescendants function //////////////////////////////////////////
-            // HINT: Review recursion lecture + demo for bonus user story
             let personDescendants = findPersonDescendants(person[0], people);
-            // alert(displayPeople(personDescendants));
             break;
         case "restart":
             // Restart app() from the very beginning
@@ -147,7 +136,6 @@ function displayPerson(person) {
     personInfo += `Eye Color: ${person.eyeColor}\n`;
     personInfo += `Occupation: ${person.occupation}\n`;
     personInfo += `ID #${person.id}\n`;
-    //! TODO #1a: finish getting the rest of the information to display //////////////////////////////////////////
     alert(personInfo);
     app(person);
 }
@@ -192,19 +180,58 @@ function chars(input) {
 
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
+function findSpouse (person, people) {
+    let returnSpouse = data.filter(function(el) {
+        if (el.id === person.currentSpouse) {
+            return true;
+        } else {
+            return false;
+        }
+    })
+    return returnSpouse;
+}
+
+function findParents (person, people) {
+    let returnParents = data.filter(function(el) {
+        try {
+        if (el.id === person.parents[0] || el.id === person.parents[1]) {
+            return true;
+        }} catch (error) {
+            return false;
+        } 
+    })
+    return returnParents;
+}
+
+function findSiblings (person, people) {
+    let returnSiblings = data.filter(function(el) {
+        if (el.parents.length === 0) {
+            return false;
+        } else if(el.id === person.id){
+            return false;
+        } else if (el.parents[0] === person.parents[0] || el.parents[1] === person.parents[1]) {
+            return true;
+        } else {
+            return false;
+        }
+    })
+    return returnSiblings;
+}
+
 
 function findPersonFamily(person, people) {
-    let foundSpouse = findSpouse(person)
+    let foundSpouse = findSpouse(person, people)
     let foundParents = findParents(person)
-    // let foundSiblings = findSiblings(person)
-    let returnFamily = `Spouse: ${foundSpouse[0].firstName} ${foundSpouse[0].lastName}\n`;
-    returnFamily += `Parents: ${[foundParents[0].firstName]} ${[foundParents[0].lastName]} \n`;
-    returnFamily += `Parents: ${[foundParents[1].firstName]} ${[foundParents[1].lastName]} \n`;
-    // returnFamily += `Siblings: ${foundSiblings[0].firstName} ${foundSiblings[0].lastName}\n`;
-    // returnFamily += `Siblings: ${[foundSiblings[1].firstName]} ${[foundSiblings[1].lastName]}\n`;
+    let foundSiblings = findSiblings(person)
+    let returnFamily = `Spouse: ${foundSpouse[0]?.firstName} ${foundSpouse[0]?.lastName}\n`;
+    returnFamily += `Parents: ${[foundParents[0]?.firstName]} ${[foundParents[0]?.lastName]} \n`;
+    returnFamily += `Parents: ${[foundParents[1]?.firstName]} ${[foundParents[1]?.lastName]} \n`;
+    returnFamily += `Siblings: ${foundSiblings[0]?.firstName} ${foundSiblings[0]?.lastName}\n`;
+    returnFamily += `Siblings: ${[foundSiblings[1]?.firstName]} ${[foundSiblings[1]?.lastName]}\n`;
+    returnFamily += `Siblings: ${[foundSiblings[2]?.firstName]} ${[foundSiblings[2]?.lastName]}\n`;
 
     alert(returnFamily);
-
+    app(people);
 }
 
 function findPersonDescendants(person, people) {
@@ -302,91 +329,72 @@ function searchByTraits(people) {
     } 
     
     if (traitPrompt === "multiple") {
-        // let traitOne = promptFor("What is the first trait would you like to search for?\n eyeColor\n dob\n gender\n height\n weight\n occupation", chars);
-        // let traitTwo = promptFor("What is the first trait would you like to search for?\n eyeColor\n dob\n gender\n height\n weight\n occupation", chars);
-        
-        // let traitOne = prompt("Please enter a gender to search by: male or female? ");
-        // let traitTwo = prompt("Please select what eye color to search for:\n blue\n brown\n green\n hazel\n black");
-        // let traitThree = prompt("Please select what occupation to search for:\n programmer\n assistant\n landscaper\n nurse\n student\n architect\n doctor\n politician")
-        
-        // let foundItems = data.filter(function(el){
-        //     if(el.gender === traitOne && el.eyeColor === traitTwo && el.occupation === traitThree) {
-        //         return true;
-        //     } else {
-        //         return false;
-        //     }
-        // })
-        // alert(displayPeople(foundItems).join('\n'))
-        
-        //     };
-        let firstPrompt = promptFor("What trait would you like to search for first?\n eyeColor\n dob\n gender\n height\n weight\n occupation", chars);
-        let firstChoice = promptFor("Enter the trait value: \n gender: male or female\n eyeColor: blue, green, black, hazel, brown\n dob: 4 digit year\n height: 58-76\n weight: 100-256\n occupation: programmer, assistant, landscaper, nurse, student, architect, doctor, politician", chars);
-        let secondPrompt = promptFor("What trait would you like to search for next?\n eyeColor\n dob\n gender\n height\n weight\n occupation", chars);
-        let secondChoice = promptFor("Enter the trait value: \n gender: male or female\n eyeColor: blue, green, black, hazel, brown\n dob: 4 digit year\n height: 58-76\n weight: 100-256\n occupation: programmer, assistant, landscaper, nurse, student, architect, doctor, politician", chars);
-        let thirdPrompt = promptFor("What trait would you like to search for next?\n eyeColor\n dob\n gender\n height\n weight\n occupation", chars);
-        let thirdChoice = promptFor("Enter the trait value: \n gender: male or female\n eyeColor: blue, green, black, hazel, brown\n dob: 4 digit year\n height: 58-76\n weight: 100-256\n occupation: programmer, assistant, landscaper, nurse, student, architect, doctor, politician", chars);
-        let foundPeople = data.filter(function(el) {
-            try {
-                if(el[firstPrompt].includes(firstChoice) && el[secondPrompt].includes(secondChoice) && el[thirdPrompt].includes(thirdChoice)){
-                    return true;
+        let multipleTraitPrompt = promptFor("How many traits would you like to use in your search? Enter: two or three", chars);
+        if (multipleTraitPrompt === 'two') {
+            let firstPrompt = promptFor("What trait would you like to search for first?\n eyeColor\n dob\n gender\n height\n weight\n occupation", chars);
+            let firstChoice = promptFor("Enter the trait value: \n gender: male or female\n eyeColor: blue, green, black, hazel, brown\n dob: 4 digit year\n height: 58-76\n weight: 100-256\n occupation: programmer, assistant, landscaper, nurse, student, architect, doctor, politician", chars);
+            let secondPrompt = promptFor("What trait would you like to search for next?\n eyeColor\n dob\n gender\n height\n weight\n occupation", chars);
+            let secondChoice = promptFor("Enter the trait value: \n gender: male or female\n eyeColor: blue, green, black, hazel, brown\n dob: 4 digit year\n height: 58-76\n weight: 100-256\n occupation: programmer, assistant, landscaper, nurse, student, architect, doctor, politician", chars);
+            let foundPeople = data.filter(function(el) {
+                try {
+                    if(el[firstPrompt]===(firstChoice) && el[secondPrompt]===(secondChoice)){
+                        return true;
+                    }
+                } catch (error) {
+                    console.log(error);
                 }
-            } catch (error) {
-                console.log(error);
-            }
-            finally{
-                if(el[firstPrompt]===parseInt(firstChoice) && el[secondPrompt]===parseInt(secondChoice) && el[thirdPrompt]===parseInt(thirdChoice)){
-                    return true;
+                finally{
+                    if(el[firstPrompt]===parseInt(firstChoice) && el[secondPrompt]===parseInt(secondChoice)){
+                        return true;
+                    } if(el[firstPrompt]===(firstChoice) && el[secondPrompt]===parseInt(secondChoice)){
+                        return true;
+                    } if(el[firstPrompt]===parseInt(firstChoice) && el[secondPrompt]===(secondChoice)){
+                        return true;
+                }   
+            }});
+            displayPeople(foundPeople);
+            app(people);
+        }
+        if (multipleTraitPrompt === 'three') {
+            let firstPrompt = promptFor("What trait would you like to search for first?\n eyeColor\n dob\n gender\n height\n weight\n occupation", chars);
+            let firstChoice = promptFor("Enter the trait value: \n gender: male or female\n eyeColor: blue, green, black, hazel, brown\n dob: 4 digit year\n height: 58-76\n weight: 100-256\n occupation: programmer, assistant, landscaper, nurse, student, architect, doctor, politician", chars);
+            let secondPrompt = promptFor("What trait would you like to search for next?\n eyeColor\n dob\n gender\n height\n weight\n occupation", chars);
+            let secondChoice = promptFor("Enter the trait value: \n gender: male or female\n eyeColor: blue, green, black, hazel, brown\n dob: 4 digit year\n height: 58-76\n weight: 100-256\n occupation: programmer, assistant, landscaper, nurse, student, architect, doctor, politician", chars);
+            let thirdPrompt = promptFor("What trait would you like to search for next?\n eyeColor\n dob\n gender\n height\n weight\n occupation", chars);
+            let thirdChoice = promptFor("Enter the trait value: \n gender: male or female\n eyeColor: blue, green, black, hazel, brown\n dob: 4 digit year\n height: 58-76\n weight: 100-256\n occupation: programmer, assistant, landscaper, nurse, student, architect, doctor, politician", chars);
+            let foundPeople = data.filter(function(el) {
+                try {
+                    if(el[firstPrompt]===(firstChoice) && el[secondPrompt]===(secondChoice) && el[thirdPrompt]===(thirdChoice)){
+                        return true;
+                    }
+                } catch (error) {
+                    console.log(error);
                 }
-            }
-        });
-        alert(displayPeople(foundPeople))   
-            
-            
-
-
+                finally{
+                    if(el[firstPrompt]===parseInt(firstChoice) && el[secondPrompt]===parseInt(secondChoice) && el[thirdPrompt]===parseInt(thirdChoice)){
+                        return true;
+                    } if(el[firstPrompt]===(firstChoice) && el[secondPrompt]===parseInt(secondChoice) && el[thirdPrompt]===parseInt(thirdChoice)){
+                        return true;
+                    } if(el[firstPrompt]===(firstChoice) && el[secondPrompt]===(secondChoice) && el[thirdPrompt]===parseInt(thirdChoice)){
+                        return true;
+                    } if(el[firstPrompt]===(firstChoice) && el[secondPrompt]===parseInt(secondChoice) && el[thirdPrompt]===(thirdChoice)){
+                        return true;
+                    } if(el[firstPrompt]===parseInt(firstChoice) && el[secondPrompt]===(secondChoice) && el[thirdPrompt]===(thirdChoice)){
+                        return true;
+                    } if(el[firstPrompt]===parseInt(firstChoice) && el[secondPrompt]===parseInt(secondChoice) && el[thirdPrompt]===(thirdChoice)){
+                        return true;
+                    } if(el[firstPrompt]===parseInt(firstChoice) && el[secondPrompt]===(secondChoice) && el[thirdPrompt]===parseInt(thirdChoice)){
+                        return true;
+                    }
+                }   
+            });
+            displayPeople(foundPeople);
+            app(people);
+        }
     if (traitPrompt != "single" || traitPrompt != "multiple") {
         alert("I am sorry that input is invalid. You will now be returned to the Main Menu");
         return app(people);
-    }
-        
-    
-}
-
-function findSpouse (person, people) {
-    let returnSpouse = data.filter(function(el) {
-        if (el.id === person.currentSpouse) {
-            return true;
-        } else {
-            return false;
-        }
-    })
-    return returnSpouse;
-}
-
-function findParents (person, people) {
-    let returnParents = data.filter(function(el) {
-        if (el.id === person.parents[0] || el.id === person.parents[1]) {
-            return true;
-        } else {
-            return false;
-        }
-    })
-    return returnParents;
-}
-
-function findSiblings (person, people) {
-    let returnSiblings = data.filter(function(el) {
-        if (el.parents.length === 0) {
-            return false;
-        } else if(el.id === person.id){
-            return false;
-        } else if (el.parents[0] === person.parents[0] || el.parents[1] === person.parents[1]) {
-            return true;
-        } else {
-            return false;
-        }
-    })
-    return returnSiblings;
+    }   
 }
 
 }

@@ -195,21 +195,15 @@ function chars(input) {
 function findPersonFamily(person, people) {
     let foundSpouse = findSpouse(person)
     let foundParents = findParents(person)
-    let returnFamily = `Spouse: ${[foundSpouse]}\n`;
-    returnFamily += `Parents: ${[foundParents]}\n`;
+    // let foundSiblings = findSiblings(person)
+    let returnFamily = `Spouse: ${foundSpouse[0].firstName} ${foundSpouse[0].lastName}\n`;
+    returnFamily += `Parents: ${[foundParents[0].firstName]} ${[foundParents[0].lastName]} \n`;
+    returnFamily += `Parents: ${[foundParents[1].firstName]} ${[foundParents[1].lastName]} \n`;
+    // returnFamily += `Siblings: ${foundSiblings[0].firstName} ${foundSiblings[0].lastName}\n`;
+    // returnFamily += `Siblings: ${[foundSiblings[1].firstName]} ${[foundSiblings[1].lastName]}\n`;
 
-    displayPeople(foundSpouse + foundParents);
+    alert(returnFamily);
 
-    // let returnFamily = data.filter(function(el) {
-    //     if (el.id === person.currentSpouse || el.id === person.parents[0] || el.id === person.parents[1] || el.parents[0] === person.parents[0] && el.parents[1] === person.parents[1]) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     };
-    // })  
-   
-    
-    // alert(displayPeople(returnFamily));
 }
 
 function findPersonDescendants(person, people) {
@@ -334,7 +328,7 @@ function findSpouse (person, people) {
             return false;
         }
     })
-    return returnSpouse
+    return returnSpouse;
 }
 
 function findParents (person, people) {
@@ -345,5 +339,22 @@ function findParents (person, people) {
             return false;
         }
     })
-    return returnParents
+    return returnParents;
 }
+
+function findSiblings (person, people) {
+    let returnSiblings = data.filter(function(el) {
+        if (el.parents.length === 0) {
+            return false;
+        } else if(el.id === person.id){
+            return false;
+        } else if (el.parents[0] === person.parents[0] || el.parents[1] === person.parents[1]) {
+            return true;
+        } else {
+            return false;
+        }
+    })
+    return returnSiblings;
+}
+
+
